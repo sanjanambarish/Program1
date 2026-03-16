@@ -1,0 +1,196 @@
+1. Commands to demonstrate creating a project in local and remote repository using Git Bash and GitHub, applying `init`, `status`, `log`, `add`, `commit`, `push`, `config`, `clone`, and `reset` in Git`.
+
+cd Devops
+git clone https://github.com/MS-Shamanth/Program1.git
+cd Program1
+git config --global user.name "MS-Shamanth"
+git config --global user.email "shamanthms1@gmail.com"
+nano first.txt
+git add first.txt
+git commit -m "First file"
+git status
+git push origin main
+git pull
+nano first.txt
+git reset --hard HEAD
+git log
+
+
+2. Demonstrate to create a project in remote repository and apply fork, merge, diff, merge conflict, branch and pull request concepts on repository using github. 
+
+cd Devops
+git clone https://github.com/MS-Shamanth/add.git
+cd add
+git init
+git branch f1
+git checkout f1
+nano file1.txt
+git add file1.txt
+git commit -m "file1"
+nano file2.txt
+git add file2.txt
+git commit -m "file2"
+git checkout main
+git merge f1
+nano first.txt
+git add first.txt
+git commit -m "first"
+git checkout f1
+nano first.txt
+git add first.txt
+git commit -m "first"
+git checkout main
+git merge f1
+git diff first.txt
+git status
+git add first.txt
+git commit -m "merge conflict resolved"
+git push origin main
+
+GitHub Steps:
+
+1. Open GitHub.
+2. Search **add two numbers** repository.
+3. Open the repository.
+4. Click **Fork**.
+5. Create repository named **add**.
+6. Copy repository URL.
+7. After pushing changes, go to GitHub.
+8. Click **Pull Request** → **Create Pull Request** → **Merge**.
+
+
+3. Demonstrate the process of integration of github repository with jenkins to automate the project execution in CI/CD pipeline.
+
+cd Devops
+git clone https://github.com/MS-Shamanth/Program1.git
+cd Program1
+git config --global user.email shamanthms1@gmail.com
+git config --global user.name MS-Shamanth
+nano myfile.java
+
+Java code: 
+public class myfile {
+    public static void main(String[] args) {
+        int a = 10;
+        int b = 20;
+        int sum = a + b;
+
+        System.out.println("Addition of two numbers: " + sum);
+    }
+}
+
+git add myfile.java
+git commit -m "this is my java program"
+git push origin main
+
+Jenkins Steps:
+
+1. Open Jenkins
+2. Click **New Item**
+3. Enter name **program3**
+4. Select **Freestyle Project** → OK
+5. Go to **Source Code Management**
+6. Select **Git**
+7. Paste repository URL : https://github.com/MS-Shamanth/Program1.git 
+8. Branch:  */main
+9. Go to **Build Steps**
+10. Select **Execute Windows Batch Command**
+11. Enter command:
+    javac myfile.java
+    java myfile
+12. Click **Save**
+13. Click **Build Now**
+14. Click **Console Output** → Finished: SUCCESS
+
+
+4. Create a Maven Project with Required Dependencies for CI/CD Pipeline
+
+Steps
+
+1. Open **Eclipse IDE**.
+2. Click **File → New → Maven Project**.
+3. Click **Next**.
+4. Select **`org.apache.maven.archetypes:maven-archetype-quickstart` (1.5)**.
+5. Click **Next**.
+6. Enter details:
+   Group Id: example1
+   Artifact Id: example1
+7. Click **Finish**.
+8. Maven will build the project and show **BUILD SUCCESS** in console.
+
+# Add Dependency
+
+1. Open browser and search **Maven Repository** click on the 1st link.
+2. Search **simple json**.
+3. Open **json-simple** library.
+4. Select version **1.1.1**.
+5. Copy the dependency code.
+6. Open **pom.xml** in Eclipse and paste inside `<dependencies>`.
+
+<dependency>
+    <groupId>com.googlecode.json-simple</groupId>
+    <artifactId>json-simple</artifactId>
+    <version>1.1.1</version>
+</dependency>
+
+Save the file.
+
+# Create JSON Folder and File
+
+Right click project → New → Folder → jsonfile
+
+Inside the folder create file: emp.json
+
+### emp.json
+{
+  "firstname": "Shamanth",
+  "lastname": "MS"
+}
+
+# Create Java Class
+
+Go to:
+src/test/java
+Create class:
+Example1
+
+
+# Java Program (Example1.java)
+
+package example1.example1;
+
+import java.io.FileReader;
+import java.io.IOException;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+public class Example1 {
+
+    public static void main(String[] args) throws IOException, ParseException {
+
+        JSONParser jsonparser = new JSONParser();
+        FileReader fileReader = new FileReader("jsonfile/emp.json");
+
+        Object obj = jsonparser.parse(fileReader);
+        JSONObject empObj = (JSONObject) obj;
+
+        String fname = (String) empObj.get("firstname");
+        String lname = (String) empObj.get("lastname");
+
+        System.out.println("Firstname: " + fname);
+        System.out.println("Lastname: " + lname);
+    }
+}
+
+# Project Structure
+
+example1
+ ├── src
+ │   ├── main/java
+ │   └── test/java
+ │        └── Example1.java
+ ├── jsonfile
+ │     └── emp.json
+ └── pom.xml
